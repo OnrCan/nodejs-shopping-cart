@@ -1,0 +1,17 @@
+extends ../layout
+
+block content
+	.container.center
+		.row
+			.col-md-4.offset-md-4
+				h1 Sign Up
+
+				form(action="/user/signup", method="post")
+					.form-group
+						label(for="email") E-Mail
+						input.form-control(type="text", name="email" id="email")
+					.form-group
+						label(for="password") E-Mail
+						input.form-control(type="password", name="password" id="password")
+					button.btn.btn-primary(type="submit") Sign Up
+					input(type="hidden", name="", value= csrfToken)
