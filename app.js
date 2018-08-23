@@ -5,6 +5,8 @@ var mongoose = require('mongoose')
 var express = require('express');
 var logger = require('morgan');
 var path = require('path');
+var passport = require('passport')
+var flash = require('connect-flash')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -12,6 +14,7 @@ var usersRouter = require('./routes/users');
 var app = express();
 
 mongoose.connect('mongodb://localhost:27017/nodejs-shopping-cart', { useNewUrlParser: true })
+require('./config/passport')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -22,6 +25,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({ secret: 'supersecret', resave: false, saveUninitialized: false }))
+app.use(flash())
+app.use(passport.initialize())
+app.use(passport.session())
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
